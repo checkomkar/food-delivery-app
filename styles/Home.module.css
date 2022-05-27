@@ -108,6 +108,12 @@
   margin-left: 0.5rem;
 }
 
+input.input-element{
+    border: 1px solid #C7C8D2;
+    border-radius: 8px;
+    padding: 10px;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

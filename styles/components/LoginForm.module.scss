@@ -1,0 +1,43 @@
+.login-btn{
+    background-color: #4E60FF;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 10px;
+    height: auto;
+}
+
+.input-element{
+    border: 1px solid #C7C8D2;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.button-element{    
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.forgot-password, .signup{
+    text-align: center;
+    font-size: 14px;
+    a{
+        color: #4E60FF;
+        font-size: 14px;
+        display: inherit;
+    }
+}
+
+.signup{
+    font-weight: normal;
+    color: #545563;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    bottom: -100px;
+    a{
+        display: inline-block;
+        font-weight: bold;
+    }
+}
