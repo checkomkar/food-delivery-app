@@ -114,9 +114,56 @@ input.input-element{
     padding: 10px;
 }
 
-@media (max-width: 600px) {
+.nearby-restaurants{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 30px;
+    
+}
+
+.product-grid-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+    
+}
+
+.category-grid-container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 30px;
+    
+}
+
+@media (max-width: 768px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .grid-container {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 10px;
+
+  }
+
+  .product-grid-container {
+      display: grid;
+      grid-template-columns: auto;
+      grid-gap: 10px;
+
+  }
+
+  .category-grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+        margin: 15px 0;
   }
 }

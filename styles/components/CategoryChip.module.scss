@@ -1,0 +1,38 @@
+@mixin set-border{
+    border: 2px solid #4E60FF;
+    color: #4E60FF;
+    background-color: #F3F4FF;
+}
+
+.category-chip{
+    display: inline-block;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 16px;
+    background-color: white;
+    color: #545563;
+    border: 1px solid #EDEEF2;
+    margin: 20px 0 10px 0px;
+    cursor: pointer;
+    box-sizing: border-box;
+    .category-image{
+        text-align: center;
+        padding-left: 15px;
+    }
+    img{
+        width: 30px;        
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+    &.active{
+        @include set-border;
+        &:hover {
+            @include set-border;
+        }
+    }
+    &:hover{
+        border: 1px solid #697BFF;        
+        background-color: #F8F9FF;
+    }
+}

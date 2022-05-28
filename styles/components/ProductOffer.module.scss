@@ -1,0 +1,18 @@
+.product-offer{
+    width: 100%;
+    border-radius: 16px;
+    .product-offer-title{
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .product-offer-discount{
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 55px;
+    }
+    .product-offer-category{
+        color: #83859C;
+        font-size: 14px;
+    }
+}

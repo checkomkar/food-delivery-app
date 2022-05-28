@@ -1,0 +1,69 @@
+.product-card{
+    width: 100%;
+    border-radius: 16px;
+    min-height: 365px;
+    position: relative;
+    padding-bottom: 60px;
+    border: 1px solid #EDEEF2;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 15px 0;
+    .product-is-featured{
+        position: absolute;
+        top: 0;
+        right: 0;
+        overflow: hidden;
+        text-transform: uppercase;
+        color: white;
+        background: #4E60FF;
+        padding: 10px;
+        border-radius: 0px 16px 0px 16px;
+    }
+    .product-card-content{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: white;
+        padding: 0 10px 10px;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-radius: 0 0 16px 16px;
+        .product-card-title {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+            .text{
+                display: inline-block;
+                width: 80%;
+            }
+            .cart{
+                display: inline-block;
+                width: 15%;
+                text-align: right;
+                
+            }
+        }
+        .product-card-delivery{
+            .delivery{
+                margin-right: 10px;
+                color: #83859C;
+            }
+            .delivery-time-icon{
+                margin-right: 10px;
+            }
+            .delivery-min-sum{
+                .circle{
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background-color: #4E60FF;
+                    display: inline-block;
+                    margin-right: 10px;
+                    position: relative;
+                    top: -2px;
+                }
+            }
+        }
+    }    
+    
+}
