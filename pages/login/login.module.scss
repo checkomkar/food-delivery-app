@@ -37,3 +37,20 @@
     padding: 20px;
 
 }
+
+@media(max-width: 572px){
+    .mobile-container{
+        padding: 15px 5%;
+        .login-title {
+                margin-bottom: 16px;
+                margin-top: 20px;
+            }
+        .big-text{
+            h1 {
+                font-size: 70px;
+            }
+        }
+        
+    }
+    
+}

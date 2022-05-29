@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getSampleData } from "../store/actions/sampleAction";
+import { validateLogin } from "../store/actions/loginAction";
 import { useEffect } from "react";
 import { Col, Row, Divider, Space } from "antd";
 import Header from "../components/Header";
@@ -21,13 +22,20 @@ import dessertIcon from "../public/dessert-icon.png";
 import styles from "../styles/Home.module.css";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
-export default function Home() {
+import fetch from "isomorphic-unfetch";
+export default function Home({ data }) {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
+	const loginUser = useSelector((state) => state.loginUser);
 	const { sample } = sampleListData;
 	useEffect(() => {
 		dispatch(getSampleData());
 	}, [dispatch]);
+	useEffect(() => {
+		if (localStorage.getItem("user") == null) {
+			window.location.href = "/login";
+		}
+	}, []);
 	const products = [
 		{
 			title: "Royal Sushi House",
@@ -173,4 +181,15 @@ export default function Home() {
 			</Row>
 		</>
 	);
+}
+
+export async function getStaticProps(context) {
+	const res = await fetch("http://localhost:3000/api/login");
+	console.log("res", res);
+	const json = await res.json();
+	return {
+		props: {
+			data: json,
+		},
+	};
 }

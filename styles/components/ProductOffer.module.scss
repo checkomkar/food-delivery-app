@@ -10,9 +10,26 @@
         font-size: 50px;
         font-weight: bold;
         margin-bottom: 55px;
+        @media(max-width: 1366px) {
+                margin-bottom: 0px;
+            }
     }
     .product-offer-category{
         color: #83859C;
         font-size: 14px;
+    }
+}
+
+@media(max-width: 768px) {
+    .product-offer{
+        margin-bottom: 0px;
+    }
+    .product-offer-title,  .product-offer-discount {
+        padding-left: 15px;
+    }
+    .product-offer-category{
+        padding-right: 20px;
+        padding-top: 20px;
+        text-align: right;
     }
 }

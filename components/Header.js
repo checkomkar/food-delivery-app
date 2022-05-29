@@ -2,10 +2,10 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Col, Row } from "antd";
 import Logo from "./Logo";
-import { Input, Space, Avatar, Badge, Divider } from "antd";
+import { Input, Avatar, Badge, Divider } from "antd";
 import styles from "../styles/components/Header.module.scss";
-import { UserOutlined, MenuOutlined } from "@ant-design/icons";
-import dp from "../public/dp.png";
+import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+
 const { Search } = Input;
 function Header() {
 	const url =
@@ -13,7 +13,12 @@ function Header() {
 	return (
 		<>
 			<Row>
-				<Col span={8} xs={{ span: 10 }} md={{ span: 8 }}>
+				<Col
+					span={8}
+					xs={{ span: 12 }}
+					md={{ span: 8 }}
+					lg={{ span: 8 }}
+				>
 					<Row>
 						<Col span={8}>
 							<Logo />
@@ -31,35 +36,59 @@ function Header() {
 					span={8}
 					offset={8}
 					xs={{ span: 0 }}
-					md={{ span: 8, offset: 8 }}
+					md={{ span: 11, offset: 5 }}
 				>
 					<ul className={styles["menu-items"]}>
-						<li>
+						<li className={styles["text-item"]}>
 							<span className={styles["text"]}>Restaurants</span>
 						</li>
-						<li>
+						<li className={styles["text-item"]}>
 							<span className={styles["text"]}>Deals</span>
 						</li>
 
-						<li>
+						<li className={styles["text-item"]}>
 							<Divider type="vertical" />
 							<span className={styles["text"]}>My orders</span>
 						</li>
 						<li className={styles["icons"]}>
-							<Badge color={"#4E60FF"} count={99}>
-								<Avatar shape="square" size="large" />
-							</Badge>
-						</li>
-						<li className={styles["icons"]}>
-							<Avatar shape="square" size={44} src={url} />
+							<Row>
+								<Col span={12}>
+									<Badge color={"#4E60FF"} count={99}>
+										<Avatar
+											style={{
+												backgroundColor: "#4E60FF",
+												verticalAlign: "middle",
+											}}
+											shape="square"
+											icon={<ShoppingCartOutlined />}
+											size="large"
+										/>
+									</Badge>
+								</Col>
+								<Col span={12}>
+									<Avatar
+										shape="square"
+										size={44}
+										src={url}
+									/>
+								</Col>
+							</Row>
 						</li>
 					</ul>
 				</Col>
-				<Col xs={{ span: 14 }} md={{ span: 0 }}>
+				<Col xs={{ span: 12 }} md={{ span: 0 }}>
 					<Row className={styles["mobile-menu"]}>
 						<Col span={8}>
 							<Badge color={"#4E60FF"} count={99}>
-								<Avatar shape="square" size="large" />
+								<Avatar
+									style={{
+										backgroundColor: "#4E60FF",
+										verticalAlign: "middle",
+									}}
+									shape="square"
+									icon={<ShoppingCartOutlined />}
+									size="large"
+								/>
 							</Badge>
 						</Col>
 						<Col span={8}>

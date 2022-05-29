@@ -12,25 +12,37 @@ function Login() {
 		<>
 			<Row>
 				<Col span={11} xs={{ span: 24 }} md={{ span: 11 }}>
-					<Row justify="center">
-						<Col span={12}>
-							<Logo />
-						</Col>
-					</Row>
-					<Row justify="center" className={styles["login-title"]}>
-						<Col span={12} className={styles["big-text"]}>
-							<h1>Login</h1>
-							<p className={styles["sub-title"]}>
-								Sign in with your data that you entered during
-								your registration.
-							</p>
-						</Col>
-					</Row>
-					<Row justify="center">
-						<Col span={12} className={styles["big-text"]}>
-							<LoginForm />
-						</Col>
-					</Row>
+					<div className={styles["mobile-container"]}>
+						<Row justify="center">
+							<Col span={12} xs={24} md={12}>
+								<Logo />
+							</Col>
+						</Row>
+						<Row justify="center" className={styles["login-title"]}>
+							<Col
+								span={12}
+								xs={24}
+								md={12}
+								className={styles["big-text"]}
+							>
+								<h1>Login</h1>
+								<p className={styles["sub-title"]}>
+									Sign in with your data that you entered
+									during your registration.
+								</p>
+							</Col>
+						</Row>
+						<Row justify="center">
+							<Col
+								span={12}
+								xs={24}
+								md={12}
+								className={styles["big-text"]}
+							>
+								<LoginForm />
+							</Col>
+						</Row>
+					</div>
 				</Col>
 				<Col
 					span={13}

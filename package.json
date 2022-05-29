@@ -11,7 +11,10 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.20.6",
+    "isomorphic-unfetch": "^3.1.0",
+    "mongodb": "^4.6.0",
     "next": "12.1.6",
+    "next-connect": "^0.12.2",
     "next-redux-wrapper": "^7.0.5",
     "nodesass": "^0.0.2-security",
     "react": "18.1.0",
