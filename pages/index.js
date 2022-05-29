@@ -100,6 +100,7 @@ export default function Home() {
 		{
 			title: "Shushi",
 			image: shushiIcon,
+			active: true,
 		},
 		{
 			title: "Pizza",
