@@ -29,6 +29,21 @@
     }
 }
 
+.error-msg{
+    color: rgb(156, 14, 14);
+    font-size: 14px;
+    text-align: left;
+    background-color: #f8c1c1;
+    padding: 5px 15px;
+    border-radius: 8px;
+    .go-home{
+        color: #4E60FF;
+        font-size: 14px;
+        display: inherit;
+        cursor: pointer;
+    }
+}
+
 .signup{
     font-weight: normal;
     color: #545563;

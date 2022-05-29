@@ -9,6 +9,7 @@ function LoginForm() {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [requiredMark, setRequiredMarkType] = useState("optional");
+	const [error, setError] = useState({ hasError: false, msg: "" });
 	const loginUser = useSelector((state) => state.loginUser.user);
 
 	const onRequiredTypeChange = ({ requiredMarkValue }) => {
@@ -19,7 +20,10 @@ function LoginForm() {
 		console.log("Success:", values);
 		const response = await loginUserApi(values);
 		console.log("from api", response);
-		if (response.data.email === values.email) {
+		if (
+			response?.data?.email === values.email &&
+			response?.data?.password === values.password
+		) {
 			dispatch(
 				validateLogin({
 					email: response.data.email,
@@ -27,6 +31,8 @@ function LoginForm() {
 					id: response.data._id,
 				})
 			);
+		} else {
+			setError({ hasError: true, msg: "Error in login" });
 		}
 	};
 
@@ -37,19 +43,31 @@ function LoginForm() {
 	}, []);
 
 	const loginUserApi = async (user) => {
-		const currentUrl = window.location.origin;
-		const url = `${currentUrl}/api/login`;
-		const rawResponse = await fetch(url, {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(user),
-		});
+		try {
+			const currentUrl = window.location.origin;
+			const url = `${currentUrl}/api/login`;
+			const rawResponse = await fetch(url, {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(user),
+			});
 
-		const content = await rawResponse.json();
-		return content;
+			const content = await rawResponse.json();
+			return content;
+		} catch (err) {
+			setError({ hasError: true, msg: "Error in login" });
+		}
+	};
+
+	const goHome = () => {
+		window.location.href = "/";
+		localStorage.setItem(
+			"user",
+			JSON.stringify({ email: "test@gmail.com", name: "test" })
+		);
 	};
 
 	useEffect(() => {
@@ -84,6 +102,14 @@ function LoginForm() {
 						className={styles["input-element"]}
 					/>
 				</Form.Item>
+				{error.hasError && (
+					<p className={styles["error-msg"]}>
+						{error.msg}
+						<span className={styles["go-home"]} onClick={goHome}>
+							Go to home anyway? (Added only for demo)
+						</span>
+					</p>
+				)}
 				<Form.Item valuePropName="checked">
 					<Checkbox>Keep Me logged in</Checkbox>
 				</Form.Item>
