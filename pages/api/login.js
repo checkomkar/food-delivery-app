@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 	switch (req.method) {
 		case "POST":
 			console.log(req.body);
-			let bodyObject = JSON.parse(req.body);
+			let bodyObject = JSON.parse(JSON.stringify(req.body));
 
 			console.log("******", bodyObject);
 			let user = await db.collection("users").findOne(
