@@ -23,7 +23,7 @@ import styles from "../styles/Home.module.css";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
 import fetch from "isomorphic-unfetch";
-export default function Home({ data }) {
+export default function Home() {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
 	const loginUser = useSelector((state) => state.loginUser);
@@ -181,15 +181,4 @@ export default function Home({ data }) {
 			</Row>
 		</>
 	);
-}
-
-export async function getStaticProps(context) {
-	const res = await fetch("http://localhost:3000/api/login");
-	console.log("res", res);
-	const json = await res.json();
-	return {
-		props: {
-			data: json,
-		},
-	};
 }
