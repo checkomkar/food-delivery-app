@@ -10,8 +10,8 @@ import Logo from "../../components/Logo";
 function Login() {
 	return (
 		<>
-			<Row>
-				<Col span={11} xs={{ span: 24 }} md={{ span: 11 }}>
+			<Row style={{ minHeight: "100vh", overflow: "auto" }}>
+				<Col span={11} xs={{ span: 24 }} md={{ span: 12 }}>
 					<div className={styles["mobile-container"]}>
 						<Row justify="center">
 							<Col span={12} xs={24} md={12}>
@@ -48,10 +48,18 @@ function Login() {
 					span={13}
 					className={styles["sample-content"]}
 					xs={{ span: 0 }}
-					md={{ span: 13 }}
+					md={{ span: 12 }}
 				>
-					<div className="login-banner">
-						<Image src={loginBanner} />
+					<div className={styles["login-banner"]}>
+						<div className={styles["img-container"]}>
+							<Image
+								className={styles["promo-img"]}
+								src={loginBanner}
+								layout="intrinsic"
+								//width={}
+							/>
+						</div>
+
 						<Slide />
 					</div>
 				</Col>

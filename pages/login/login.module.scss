@@ -11,7 +11,7 @@
 
 .login-title{
     margin-bottom: 16px;
-    margin-top: 85px;
+    margin-top: 10%;
 }
 
 .big-text{
@@ -30,12 +30,24 @@
 
 .sample-content{
     background-color: #697BFF;
-    height: 100vh;
+    
 }
 
 .login-banner{
     padding: 20px;
-
+    text-align: center;
+    .img-container{
+        max-height: 50%;
+        display: flex;
+    }
+    .promo-img{
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    img{
+        width: 300px;
+    }
 }
 
 @media(max-width: 572px){
@@ -53,4 +65,15 @@
         
     }
     
+}
+
+@media(max-width: 1366px) {
+    .login-title{
+        margin-bottom: 3px;
+        margin-top: 0;
+        .big-text{
+            font-size: 40px;
+            font-weight: bold;
+        }
+    }
 }

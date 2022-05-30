@@ -162,8 +162,8 @@ export default function Home() {
 			<Row>
 				<div className="container">
 					<div className={styles["category-grid-container"]}>
-						{categories.map((category) => (
-							<CategoryChip categoryChip={category} />
+						{categories.map((category, index) => (
+							<CategoryChip key={index} categoryChip={category} />
 						))}
 					</div>
 				</div>
