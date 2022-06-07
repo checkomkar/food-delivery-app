@@ -30,7 +30,7 @@ password: 1234567
 
 App is connected to mongodb via login API
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/login). This endpoint can be edited in `pages/api/login.js`
+[http://localhost:3000/api/login](http://localhost:3000/api/login). This endpoint can be edited in `pages/api/login.js`
 
 Configuration for mongodb can be modified in `middleware/mongodbConn.js`
 
