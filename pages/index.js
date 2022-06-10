@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getSampleData } from "../store/actions/sampleAction";
-import { validateLogin } from "../store/actions/loginAction";
+import Router from "next/router";
 import { useEffect } from "react";
 import { Col, Row, Divider, Space } from "antd";
 import Header from "../components/Header";
@@ -22,7 +22,7 @@ import dessertIcon from "../public/dessert-icon.png";
 import styles from "../styles/Home.module.css";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
-import fetch from "isomorphic-unfetch";
+import getCookie from "../utils/getCookie";
 export default function Home() {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
@@ -32,8 +32,13 @@ export default function Home() {
 		dispatch(getSampleData());
 	}, [dispatch]);
 	useEffect(() => {
-		if (localStorage.getItem("user") == null) {
-			window.location.href = "/login";
+		// if (localStorage.getItem("user") == null) {
+		// 	window.location.href = "/login";
+		// }
+		let loggedIn = getCookie("login_cookiename");
+		console.log("loggedIn", loggedIn);
+		if (!loggedIn || loggedIn == "") {
+			Router.push("/login");
 		}
 	}, []);
 	const products = [
@@ -125,61 +130,66 @@ export default function Home() {
 		},
 	];
 	return (
-		<>
-			{/* <h3>{JSON.stringify(sample)}</h3> */}
-			<Row>
-				<div className="container">
-					<Header />
-				</div>
-			</Row>
-			<Divider />
-			<Row justify="center">
-				<div className="container">
-					<div className={styles["grid-container"]}>
-						<div className={styles["grid-item"]}>
-							<ProductOffer
-								image={cupCake}
-								title="All Deserts"
-								bgColor={"#F3F4FF"}
-								textColor={"#4E60FF"}
-								category="Deserty"
-								discount={20}
-							/>
+		loginUser.name && (
+			<>
+				{/* <h3>{JSON.stringify(sample)}</h3> */}
+				<Row>
+					<div className="container">
+						<Header />
+					</div>
+				</Row>
+				<Divider />
+				<Row justify="center">
+					<div className="container">
+						<div className={styles["grid-container"]}>
+							<div className={styles["grid-item"]}>
+								<ProductOffer
+									image={cupCake}
+									title="All Deserts"
+									bgColor={"#F3F4FF"}
+									textColor={"#4E60FF"}
+									category="Deserty"
+									discount={20}
+								/>
+							</div>
+							<div className={styles["grid-item"]}>
+								<ProductOffer
+									image={burger}
+									title="Big Burgers"
+									bgColor={"#FFF3ED"}
+									textColor={"#FD6D22"}
+									category="Foodies"
+									discount={50}
+								/>
+							</div>
 						</div>
-						<div className={styles["grid-item"]}>
-							<ProductOffer
-								image={burger}
-								title="Big Burgers"
-								bgColor={"#FFF3ED"}
-								textColor={"#FD6D22"}
-								category="Foodies"
-								discount={50}
-							/>
+					</div>
+				</Row>
+				<Row>
+					<div className="container">
+						<div className={styles["category-grid-container"]}>
+							{categories.map((category, index) => (
+								<CategoryChip
+									key={index}
+									categoryChip={category}
+								/>
+							))}
 						</div>
 					</div>
-				</div>
-			</Row>
-			<Row>
-				<div className="container">
-					<div className={styles["category-grid-container"]}>
-						{categories.map((category, index) => (
-							<CategoryChip key={index} categoryChip={category} />
-						))}
+				</Row>
+				<Row>
+					<div className="container">
+						<h3 className={styles["nearby-restaurants"]}>
+							Nearby restaurants
+						</h3>
+						<div className={styles["product-grid-container"]}>
+							{products.map((product) => (
+								<ProductCard productDetails={product} />
+							))}
+						</div>
 					</div>
-				</div>
-			</Row>
-			<Row>
-				<div className="container">
-					<h3 className={styles["nearby-restaurants"]}>
-						Nearby restaurants
-					</h3>
-					<div className={styles["product-grid-container"]}>
-						{products.map((product) => (
-							<ProductCard productDetails={product} />
-						))}
-					</div>
-				</div>
-			</Row>
-		</>
+				</Row>
+			</>
+		)
 	);
 }

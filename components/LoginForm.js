@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Input, Button, Checkbox, Radio, Col, Row } from "antd";
+import { Form, Input, Button, Checkbox, Radio, Col, Row, Spin } from "antd";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { validateLogin } from "../store/actions/loginAction";
+import getCookie from "../utils/getCookie";
+import {
+	validateLogin,
+	loggingIn,
+	loginError,
+} from "../store/actions/loginAction";
 import { LOGIN, LOGIN_ERROR } from "../store/types";
 import styles from "../styles/components/LoginForm.module.scss";
+import Router from "next/router";
 function LoginForm() {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const [requiredMark, setRequiredMarkType] = useState("optional");
 	const [error, setError] = useState({ hasError: false, msg: "" });
 	const loginUser = useSelector((state) => state.loginUser.user);
+	const isLoading = useSelector((state) => state.loginUser.loading);
 
 	const onRequiredTypeChange = ({ requiredMarkValue }) => {
 		setRequiredMarkType(requiredMarkValue);
@@ -20,15 +27,12 @@ function LoginForm() {
 		console.log("Success:", values);
 		const response = await loginUserApi(values);
 		console.log("from api", response);
-		if (
-			response?.data?.email === values.email &&
-			response?.data?.password === values.password
-		) {
+		if (response?.data?.email === values.email) {
 			dispatch(
 				validateLogin({
 					email: response.data.email,
 					name: response.data.name,
-					id: response.data._id,
+					id: response.data.id,
 				})
 			);
 		} else {
@@ -37,12 +41,17 @@ function LoginForm() {
 	};
 
 	useEffect(() => {
-		if (localStorage.getItem("user") !== null) {
-			window.location.href = "/";
+		let loggedIn = getCookie("login_cookiename");
+		console.log("loggedIn", loggedIn);
+		if (loggedIn === undefined) return;
+		if (loggedIn && loggedIn !== "") {
+			//window.location.href = "/";
+			//Router.push("/");
 		}
 	}, []);
 
 	const loginUserApi = async (user) => {
+		dispatch(loggingIn());
 		try {
 			const currentUrl = window.location.origin;
 			const url = `${currentUrl}/api/login`;
@@ -59,11 +68,13 @@ function LoginForm() {
 			return content;
 		} catch (err) {
 			setError({ hasError: true, msg: "Error in login" });
+			dispatch(loginError());
 		}
 	};
 
 	const goHome = () => {
-		window.location.href = "/";
+		//window.location.href = "/";
+		Router.push("/");
 		localStorage.setItem(
 			"user",
 			JSON.stringify({ email: "test@gmail.com", name: "test" })
@@ -73,8 +84,8 @@ function LoginForm() {
 	useEffect(() => {
 		console.log("loginUser state update", loginUser);
 		if (loginUser.email) {
-			window.location.href = "/";
-			localStorage.setItem("user", JSON.stringify(loginUser));
+			//window.location.href = "/";
+			Router.push("/");
 		}
 	}, [loginUser]);
 
@@ -118,8 +129,9 @@ function LoginForm() {
 						type="primary"
 						className={styles["login-btn"]}
 						htmlType="submit"
+						disabled={isLoading}
 					>
-						Login
+						Login <Spin spinning={isLoading} />
 					</Button>
 				</Form.Item>
 			</Form>

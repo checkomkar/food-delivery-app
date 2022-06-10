@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_ERROR } from "../types";
+import { LOGIN, LOGIN_ERROR, LOGGING_IN } from "../types";
 
 const initialState = {
 	user: {},
@@ -13,6 +13,11 @@ const loginReducer = (state = initialState, action) => {
 				...state,
 				user: action.payload,
 				loading: false,
+			};
+		case LOGGING_IN:
+			return {
+				...state,
+				loading: true,
 			};
 
 		case LOGIN_ERROR:

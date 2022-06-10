@@ -1,6 +1,18 @@
 import clientPromise from "../../middleware/mongodbConn";
+import { withIronSessionApiRoute } from "iron-session/next";
 
-export default async function handler(req, res) {
+const sessionOptions = {
+	cookieName: "login_cookiename",
+	password: process.env.COOKIE_PASSWORD,
+	// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+	cookieOptions: {
+		secure: process.env.NODE_ENV === "production",
+	},
+};
+
+export default withIronSessionApiRoute(loginHandler, sessionOptions);
+
+async function loginHandler(req, res) {
 	const client = await clientPromise;
 	const db = client.db("mydb");
 	switch (req.method) {
@@ -15,10 +27,18 @@ export default async function handler(req, res) {
 				},
 				{ password: bodyObject.password }
 			);
-			res.json({ status: 200, data: user });
+			req.session.user = user;
+
+			//console.log("session", req);
+			await req.session.save();
+			res.json({
+				status: 200,
+				data: { id: user._id, email: user.email, name: user.name },
+			});
 			break;
 		case "GET":
 			const posts = await db.collection("users").find({}).toArray();
+			await req.session.save();
 			res.json({ status: 200, data: posts });
 			break;
 	}

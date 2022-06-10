@@ -4,7 +4,11 @@ import { Col, Row } from "antd";
 import Logo from "./Logo";
 import { Input, Avatar, Badge, Divider } from "antd";
 import styles from "../styles/components/Header.module.scss";
-import { MenuOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+	MenuOutlined,
+	ShoppingCartOutlined,
+	LogoutOutlined,
+} from "@ant-design/icons";
 
 const { Search } = Input;
 function Header() {
@@ -52,7 +56,7 @@ function Header() {
 						</li>
 						<li className={styles["icons"]}>
 							<Row>
-								<Col span={12}>
+								<Col span={8}>
 									<Badge color={"#4E60FF"} count={99}>
 										<Avatar
 											style={{
@@ -65,11 +69,18 @@ function Header() {
 										/>
 									</Badge>
 								</Col>
-								<Col span={12}>
+								<Col span={8}>
 									<Avatar
 										shape="square"
 										size={44}
 										src={url}
+									/>
+								</Col>
+								<Col span={8}>
+									<Avatar
+										icon={<LogoutOutlined />}
+										size={44}
+										onClick={() => {}}
 									/>
 								</Col>
 							</Row>
