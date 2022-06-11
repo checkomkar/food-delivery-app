@@ -50,6 +50,10 @@ export default function Home() {
 			console.log("not logged in", loginUser);
 			Router.push("/login");
 		}
+		return () => {
+			document.cookie =
+				"login_cookiename=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		};
 	}, []);
 	const products = [
 		{
