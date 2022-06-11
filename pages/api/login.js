@@ -8,6 +8,7 @@ const sessionOptions = {
 	cookieOptions: {
 		secure: true,
 		httpOnly: false,
+		maxAge: undefined,
 	},
 };
 
