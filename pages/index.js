@@ -23,6 +23,7 @@ import styles from "../styles/Home.module.css";
 import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
 import getCookie from "../utils/getCookie";
+import { validateLogin } from "../store/actions/loginAction";
 export default function Home() {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
@@ -33,13 +34,21 @@ export default function Home() {
 	}, [dispatch]);
 	useEffect(() => {
 		let loggedIn = getCookie("login_cookiename");
-		console.log("loggedIn home", loggedIn);
-		console.log("not logged in", loginUser);
-		if (loginUser.name) {
+		// console.log("loggedIn home", loggedIn);
+		// console.log("not logged in", loginUser);
+		const getSessionData = JSON.parse(sessionStorage.getItem("user"));
+		dispatch(
+			validateLogin({
+				email: getSessionData?.email,
+				name: getSessionData?.name,
+				id: getSessionData?.id,
+			})
+		);
+		if (loggedIn !== "" && loginUser.name) {
 			Router.push("/");
 		} else {
 			console.log("not logged in", loginUser);
-			//Router.push("/login");
+			Router.push("/login");
 		}
 	}, []);
 	const products = [

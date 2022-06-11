@@ -7,7 +7,9 @@ import Slide from "../../components/Slide";
 import Image from "next/image";
 import loginBanner from "../../public/cover-image.jpg";
 import Logo from "../../components/Logo";
+import { useSelector } from "react-redux";
 function Login() {
+	const user = useSelector((state) => state.loginUser.user);
 	return (
 		<>
 			<Row style={{ minHeight: "100vh", overflow: "auto" }}>

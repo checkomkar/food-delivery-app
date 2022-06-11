@@ -8,7 +8,6 @@ import {
 	loggingIn,
 	loginError,
 } from "../store/actions/loginAction";
-import { LOGIN, LOGIN_ERROR } from "../store/types";
 import styles from "../styles/components/LoginForm.module.scss";
 import Router from "next/router";
 function LoginForm() {
@@ -42,16 +41,10 @@ function LoginForm() {
 
 	useEffect(() => {
 		let loggedIn = getCookie("login_cookiename");
-		console.log("loggedIn", loggedIn);
-		// if (loggedIn === undefined) return;
-		// if (loggedIn && loggedIn !== "") {
-		// 	//window.location.href = "/";
-		// 	Router.push("/");
-		// }
-		if (loginUser.name) {
-			console.log("loginUser.name", loginUser.name);
-			//Router.push("/");
-		}
+		// console.log("loggedIn", loggedIn, loginUser.name);
+		if ((loggedIn === undefined || loggedIn == "") && !loginUser.name)
+			return;
+		else Router.push("/");
 	}, []);
 
 	const loginUserApi = async (user) => {
@@ -79,16 +72,15 @@ function LoginForm() {
 	const goHome = () => {
 		//window.location.href = "/";
 		Router.push("/");
-		localStorage.setItem(
-			"user",
-			JSON.stringify({ email: "test@gmail.com", name: "test" })
-		);
+		// localStorage.setItem(
+		// 	"user",
+		// 	JSON.stringify({ email: "test@gmail.com", name: "test" })
+		// );
 	};
 
 	useEffect(() => {
 		console.log("loginUser state update", loginUser);
 		if (loginUser.name) {
-			//window.location.href = "/";
 			sessionStorage.setItem("user", JSON.stringify(loginUser));
 			Router.push("/");
 		}

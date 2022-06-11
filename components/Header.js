@@ -1,19 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import { Col, Row } from "antd";
 import Logo from "./Logo";
-import { Input, Avatar, Badge, Divider } from "antd";
+import { Input, Avatar, Badge, Divider, Tooltip } from "antd";
 import styles from "../styles/components/Header.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	logout,
+	loggingOut,
+	logoutError,
+} from "../store/actions/logoutActions";
 import {
 	MenuOutlined,
 	ShoppingCartOutlined,
 	LogoutOutlined,
 } from "@ant-design/icons";
+import Router from "next/router";
 
-const { Search } = Input;
 function Header() {
 	const url =
 		"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80";
+	const dispatch = useDispatch();
+	const { Search } = Input;
+	const handleLogout = async () => {
+		const response = await logOutUserApi();
+		// console.log("logout response", response);
+		if (response.userLoggedOut) {
+			dispatch(logout({}));
+			sessionStorage.setItem("user", null);
+			Router.push("/login");
+		}
+	};
+	const logoutUser = useSelector((state) => state.loginUser.user);
+	const isLoading = useSelector((state) => state.loginUser.loading);
+	const logOutUserApi = async (user) => {
+		dispatch(loggingOut());
+		try {
+			const currentUrl = window.location.origin;
+			const url = `${currentUrl}/api/logout`;
+			const rawResponse = await fetch(url);
+
+			const content = await rawResponse.json();
+			return content;
+		} catch (err) {
+			setError({ hasError: true, msg: "Error in logout" });
+			dispatch(logoutError());
+		}
+	};
+
+	useEffect(() => {
+		// console.log("logoutUser", logoutUser);
+	}, [logoutUser]);
+
 	return (
 		<>
 			<Row>
@@ -71,22 +109,27 @@ function Header() {
 								</Col>
 								<Col span={8}>
 									<Avatar
-										style={{
-											backgroundColor: "#4E60FF",
-											verticalAlign: "middle",
-										}}
 										shape="square"
 										size={44}
 										src={url}
 									/>
 								</Col>
 								<Col span={8}>
-									<Avatar
-										shape="square"
-										icon={<LogoutOutlined />}
-										size={44}
-										onClick={() => {}}
-									/>
+									<Tooltip
+										placement="bottom"
+										title={"Logout"}
+									>
+										<Avatar
+											style={{
+												backgroundColor: "#4E60FF",
+												verticalAlign: "middle",
+											}}
+											shape="square"
+											icon={<LogoutOutlined />}
+											size={44}
+											onClick={handleLogout}
+										/>
+									</Tooltip>
 								</Col>
 							</Row>
 						</li>
