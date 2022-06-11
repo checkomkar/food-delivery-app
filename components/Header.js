@@ -137,7 +137,7 @@ function Header() {
 				</Col>
 				<Col xs={{ span: 12 }} md={{ span: 0 }}>
 					<Row className={styles["mobile-menu"]}>
-						<Col span={8}>
+						<Col span={6}>
 							<Badge color={"#4E60FF"} count={99}>
 								<Avatar
 									style={{
@@ -150,16 +150,28 @@ function Header() {
 								/>
 							</Badge>
 						</Col>
-						<Col span={8}>
+						<Col span={6}>
 							<Avatar shape="square" size={44} src={url} />
 						</Col>
 
-						<Col span={8}>
+						<Col span={6}>
 							<Divider type="vertical" />
 							<Avatar
 								shape="square"
 								size={44}
 								icon={<MenuOutlined />}
+							/>
+						</Col>
+						<Col span={6}>
+							<Avatar
+								style={{
+									backgroundColor: "#4E60FF",
+									verticalAlign: "middle",
+								}}
+								shape="square"
+								icon={<LogoutOutlined />}
+								size={44}
+								onClick={handleLogout}
 							/>
 						</Col>
 					</Row>
