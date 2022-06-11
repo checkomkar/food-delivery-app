@@ -43,9 +43,13 @@ function LoginForm() {
 	useEffect(() => {
 		let loggedIn = getCookie("login_cookiename");
 		console.log("loggedIn", loggedIn);
-		if (loggedIn === undefined) return;
-		if (loggedIn && loggedIn !== "") {
-			//window.location.href = "/";
+		// if (loggedIn === undefined) return;
+		// if (loggedIn && loggedIn !== "") {
+		// 	//window.location.href = "/";
+		// 	Router.push("/");
+		// }
+		if (loginUser.name) {
+			console.log("loginUser.name", loginUser.name);
 			//Router.push("/");
 		}
 	}, []);
@@ -83,8 +87,9 @@ function LoginForm() {
 
 	useEffect(() => {
 		console.log("loginUser state update", loginUser);
-		if (loginUser.email) {
+		if (loginUser.name) {
 			//window.location.href = "/";
+			sessionStorage.setItem("user", JSON.stringify(loginUser));
 			Router.push("/");
 		}
 	}, [loginUser]);
@@ -131,7 +136,10 @@ function LoginForm() {
 						htmlType="submit"
 						disabled={isLoading}
 					>
-						Login <Spin spinning={isLoading} />
+						Login{" "}
+						<span className={styles["spinner-loading"]}>
+							<Spin spinning={isLoading} />
+						</span>
 					</Button>
 				</Form.Item>
 			</Form>

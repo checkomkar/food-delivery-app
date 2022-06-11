@@ -26,19 +26,20 @@ import getCookie from "../utils/getCookie";
 export default function Home() {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
-	const loginUser = useSelector((state) => state.loginUser);
+	const loginUser = useSelector((state) => state.loginUser.user);
 	const { sample } = sampleListData;
 	useEffect(() => {
 		dispatch(getSampleData());
 	}, [dispatch]);
 	useEffect(() => {
-		// if (localStorage.getItem("user") == null) {
-		// 	window.location.href = "/login";
-		// }
 		let loggedIn = getCookie("login_cookiename");
-		console.log("loggedIn", loggedIn);
-		if (!loggedIn || loggedIn == "") {
-			Router.push("/login");
+		console.log("loggedIn home", loggedIn);
+		console.log("not logged in", loginUser);
+		if (loginUser.name) {
+			Router.push("/");
+		} else {
+			console.log("not logged in", loginUser);
+			//Router.push("/login");
 		}
 	}, []);
 	const products = [

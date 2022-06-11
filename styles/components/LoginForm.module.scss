@@ -29,6 +29,12 @@
     }
 }
 
+.spinner-loading{
+    position: relative;
+    right: -20px;
+    top: 2px;
+}
+
 .error-msg{
     color: rgb(156, 14, 14);
     font-size: 14px;

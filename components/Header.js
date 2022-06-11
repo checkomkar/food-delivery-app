@@ -71,6 +71,10 @@ function Header() {
 								</Col>
 								<Col span={8}>
 									<Avatar
+										style={{
+											backgroundColor: "#4E60FF",
+											verticalAlign: "middle",
+										}}
 										shape="square"
 										size={44}
 										src={url}
@@ -78,6 +82,7 @@ function Header() {
 								</Col>
 								<Col span={8}>
 									<Avatar
+										shape="square"
 										icon={<LogoutOutlined />}
 										size={44}
 										onClick={() => {}}
