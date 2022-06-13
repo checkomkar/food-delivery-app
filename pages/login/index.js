@@ -18,62 +18,67 @@ function Login({ user }) {
 		}
 	}, []);
 	return (
-		<>
-			<Row style={{ minHeight: "100vh", overflow: "auto" }}>
-				<Col span={11} xs={{ span: 24 }} md={{ span: 12 }}>
-					<div className={styles["mobile-container"]}>
-						<Row justify="center">
-							<Col span={12} xs={24} md={12}>
-								<Logo />
-							</Col>
-						</Row>
-						<Row justify="center" className={styles["login-title"]}>
-							<Col
-								span={12}
-								xs={24}
-								md={12}
-								className={styles["big-text"]}
+		!user && (
+			<>
+				<Row style={{ minHeight: "100vh", overflow: "auto" }}>
+					<Col span={11} xs={{ span: 24 }} md={{ span: 12 }}>
+						<div className={styles["mobile-container"]}>
+							<Row justify="center">
+								<Col span={12} xs={24} md={12}>
+									<Logo />
+								</Col>
+							</Row>
+							<Row
+								justify="center"
+								className={styles["login-title"]}
 							>
-								<h1>Login</h1>
-								<p className={styles["sub-title"]}>
-									Sign in with your data that you entered
-									during your registration.
-								</p>
-							</Col>
-						</Row>
-						<Row justify="center">
-							<Col
-								span={12}
-								xs={24}
-								md={12}
-								className={styles["big-text"]}
-							>
-								<LoginForm />
-							</Col>
-						</Row>
-					</div>
-				</Col>
-				<Col
-					span={13}
-					className={styles["sample-content"]}
-					xs={{ span: 0 }}
-					md={{ span: 12 }}
-				>
-					<div className={styles["login-banner"]}>
-						<div className={styles["img-container"]}>
-							<Image
-								className={styles["promo-img"]}
-								src={loginBanner}
-								layout="intrinsic"
-								//width={}
-							/>
+								<Col
+									span={12}
+									xs={24}
+									md={12}
+									className={styles["big-text"]}
+								>
+									<h1>Login</h1>
+									<p className={styles["sub-title"]}>
+										Sign in with your data that you entered
+										during your registration.
+									</p>
+								</Col>
+							</Row>
+							<Row justify="center">
+								<Col
+									span={12}
+									xs={24}
+									md={12}
+									className={styles["big-text"]}
+								>
+									<LoginForm />
+								</Col>
+							</Row>
 						</div>
+					</Col>
+					<Col
+						span={13}
+						className={styles["sample-content"]}
+						xs={{ span: 0 }}
+						md={{ span: 12 }}
+					>
+						<div className={styles["login-banner"]}>
+							<div className={styles["img-container"]}>
+								<Image
+									className={styles["promo-img"]}
+									src={loginBanner}
+									layout="intrinsic"
+									//width={}
+								/>
+							</div>
 
-						<Slide />
-					</div>
-				</Col>
-			</Row>
-		</>
+							<Slide />
+						</div>
+					</Col>
+				</Row>
+			</>
+		)
 	);
 }
 
@@ -86,7 +91,11 @@ export const getServerSideProps = withIronSessionSsr(
 		console.log("hello login", user);
 
 		if (!user) {
-			return { props: {} };
+			return {
+				props: {
+					user: null,
+				},
+			};
 		}
 
 		return {
