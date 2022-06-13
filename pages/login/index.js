@@ -99,5 +99,9 @@ export const getServerSideProps = withIronSessionSsr(
 		cookieName: "login_cookiename",
 		password: process.env.COOKIE_PASSWORD,
 		// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+		cookieOptions: {
+			secure: true,
+			httpOnly: false,
+		},
 	}
 );
