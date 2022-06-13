@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox, Radio, Col, Row, Spin } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
-import getCookie from "../utils/getCookie";
+
 import {
 	validateLogin,
 	loggingIn,
@@ -10,6 +9,7 @@ import {
 } from "../store/actions/loginAction";
 import styles from "../styles/components/LoginForm.module.scss";
 import Router from "next/router";
+
 function LoginForm() {
 	const dispatch = useDispatch();
 	const [form] = Form.useForm();
@@ -38,14 +38,6 @@ function LoginForm() {
 			setError({ hasError: true, msg: "Error in login" });
 		}
 	};
-
-	useEffect(() => {
-		let loggedIn = getCookie("login_cookiename");
-		// console.log("loggedIn", loggedIn, loginUser.name);
-		if ((loggedIn === undefined || loggedIn == "") && !loginUser.name)
-			return;
-		else Router.push("/");
-	}, []);
 
 	const loginUserApi = async (user) => {
 		dispatch(loggingIn());
@@ -81,7 +73,7 @@ function LoginForm() {
 	useEffect(() => {
 		console.log("loginUser state update", loginUser);
 		if (loginUser.name) {
-			sessionStorage.setItem("user", JSON.stringify(loginUser));
+			//sessionStorage.setItem("user", JSON.stringify(loginUser));
 			Router.push("/");
 		}
 	}, [loginUser]);

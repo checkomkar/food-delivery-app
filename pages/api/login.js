@@ -8,7 +8,6 @@ const sessionOptions = {
 	cookieOptions: {
 		secure: true,
 		httpOnly: false,
-		maxAge: undefined,
 	},
 };
 
@@ -30,6 +29,7 @@ async function loginHandler(req, res) {
 				{ password: bodyObject.password }
 			);
 			req.session.user = user;
+			//req.session.set("user", user);
 
 			//console.log("session", req);
 			await req.session.save();

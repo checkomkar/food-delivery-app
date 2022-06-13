@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import styles from "./login.module.scss";
 import { Col, Row } from "antd";
@@ -8,8 +8,15 @@ import Image from "next/image";
 import loginBanner from "../../public/cover-image.jpg";
 import Logo from "../../components/Logo";
 import { useSelector } from "react-redux";
-function Login() {
-	const user = useSelector((state) => state.loginUser.user);
+import { withIronSessionSsr } from "iron-session/next";
+import Router from "next/router";
+function Login({ user }) {
+	//const user = useSelector((state) => state.loginUser.user);
+	useEffect(() => {
+		if (user?.name) {
+			Router.push("/");
+		}
+	}, []);
 	return (
 		<>
 			<Row style={{ minHeight: "100vh", overflow: "auto" }}>
@@ -71,3 +78,26 @@ function Login() {
 }
 
 export default Login;
+
+export const getServerSideProps = withIronSessionSsr(
+	async ({ req, res }) => {
+		const user = req.session.user;
+
+		console.log("hello login", user);
+
+		if (!user) {
+			return { props: {} };
+		}
+
+		return {
+			props: {
+				user: user,
+			},
+		};
+	},
+	{
+		cookieName: "login_cookiename",
+		password: process.env.COOKIE_PASSWORD,
+		// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+	}
+);

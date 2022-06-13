@@ -24,7 +24,9 @@ import ProductCard from "../components/ProductCard";
 import CategoryChip from "../components/CategoryChip";
 import getCookie from "../utils/getCookie";
 import { validateLogin } from "../store/actions/loginAction";
-export default function Home() {
+import { withIronSessionSsr } from "iron-session/next";
+
+export default function Home({ user }) {
 	const dispatch = useDispatch();
 	const sampleListData = useSelector((state) => state.sampleData);
 	const loginUser = useSelector((state) => state.loginUser.user);
@@ -33,27 +35,28 @@ export default function Home() {
 		dispatch(getSampleData());
 	}, [dispatch]);
 	useEffect(() => {
+		//console.log("User from server", user);
 		let loggedIn = getCookie("login_cookiename");
-		// console.log("loggedIn home", loggedIn);
+		//console.log("loggedIn home", loggedIn);
 		// console.log("not logged in", loginUser);
-		const getSessionData = JSON.parse(sessionStorage.getItem("user"));
+		// const getSessionData = JSON.parse(sessionStorage.getItem("user"));
 		dispatch(
 			validateLogin({
-				email: getSessionData?.email,
-				name: getSessionData?.name,
-				id: getSessionData?.id,
+				email: user?.email,
+				name: user?.name,
+				id: user?.id,
 			})
 		);
-		if (loggedIn !== "" && loginUser.name) {
+		if (user?.name) {
 			Router.push("/");
 		} else {
-			console.log("not logged in", loginUser);
+			console.log("not logged in", user);
 			Router.push("/login");
 		}
-		return () => {
-			document.cookie =
-				"login_cookiename=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-		};
+		// return () => {
+		// 	document.cookie =
+		// 		"login_cookiename=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		// };
 	}, []);
 	const products = [
 		{
@@ -207,3 +210,26 @@ export default function Home() {
 		)
 	);
 }
+
+export const getServerSideProps = withIronSessionSsr(
+	async ({ req, res }) => {
+		const user = req.session.user;
+
+		console.log("hello ", user);
+
+		if (!user) {
+			return { props: {} };
+		}
+
+		return {
+			props: {
+				user: user,
+			},
+		};
+	},
+	{
+		cookieName: "login_cookiename",
+		password: process.env.COOKIE_PASSWORD,
+		// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
+	}
+);
