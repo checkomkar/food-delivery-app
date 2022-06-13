@@ -27,7 +27,8 @@ function Header() {
 		// console.log("logout response", response);
 		if (response.userLoggedOut) {
 			dispatch(logout({}));
-			sessionStorage.setItem("user", null);
+			document.cookie =
+				"login_cookiename=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			Router.push("/login");
 		}
 	};
